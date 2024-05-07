@@ -1,2 +1,4 @@
-package entities;public class Rivenditori {
+package entities;
+
+public class Rivenditori {
 }

@@ -1,2 +1,4 @@
-package entities;public class DistributoriAutomatici {
+package entities;
+
+public class DistributoriAutomatici extends Rivenditori{
 }

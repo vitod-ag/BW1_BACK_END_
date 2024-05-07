@@ -1,2 +1,5 @@
-package enums;public enum EmissioneAbbonamento {
+package enums;
+
+public enum EmissioneAbbonamento {
+    MENSILE,SETTIMANALE
 }
