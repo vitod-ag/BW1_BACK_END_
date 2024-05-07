@@ -1,5 +1,7 @@
-package entities;
+package entities.TitoliViaggi;
 
+import entities.Rivenditori.Rivenditore;
+import entities.UtenteETessera.Tessera;
 import enums.EmissioneAbbonamento;
 
 import javax.persistence.Entity;
@@ -8,7 +10,7 @@ import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.util.UUID;
 @Entity
-public class Abbonamento extends  TitoloDiViaggio{
+public class Abbonamento extends TitoloDiViaggio {
 
     private EmissioneAbbonamento emissione;
 
@@ -18,13 +20,13 @@ public class Abbonamento extends  TitoloDiViaggio{
     @JoinColumn(name = "id_tessera")
     private Tessera tessera;
 
-    public Abbonamento(UUID idTitoloViaggio, int idRivenditori, LocalDate emissioneTitoloViaggio, EmissioneAbbonamento emissione, Tessera tessera) {
-        super(idTitoloViaggio, idRivenditori, emissioneTitoloViaggio);
+      public Abbonamento() {
+        }
+
+    public Abbonamento(UUID idTitoloViaggio, Rivenditore rivenditore, LocalDate emissioneTitoloViaggio, EmissioneAbbonamento emissione, Tessera tessera) {
+        super(idTitoloViaggio, rivenditore, emissioneTitoloViaggio);
         this.emissione = emissione;
         this.tessera = tessera;
-    }
-
-    public Abbonamento() {
     }
 
     public EmissioneAbbonamento getEmissione() {
@@ -42,12 +44,11 @@ public class Abbonamento extends  TitoloDiViaggio{
     public void setTessera(Tessera tessera) {
         this.tessera = tessera;
     }
-
     @Override
     public String toString() {
-        return "Abbonamento{" +
+        return  super.toString()+"Abbonamento{" +
                 "emissione=" + emissione +
                 ", tessera=" + tessera +
-                "} " + super.toString();
+                '}';
     }
 }

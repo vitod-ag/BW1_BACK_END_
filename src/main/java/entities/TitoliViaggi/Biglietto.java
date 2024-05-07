@@ -1,11 +1,15 @@
-package entities;
+package entities.TitoliViaggi;
+
+import entities.Rivenditori.Rivenditore;
+import entities.UtenteETessera.Utente;
+import entities.mezzi.Mezzo;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-public class Biglietto extends TitoloDiViaggio{
+public class Biglietto extends TitoloDiViaggio {
 
 private boolean validita;
 
@@ -20,15 +24,15 @@ private LocalDate timbratura;
     private Mezzo mezzo;
 
 
-    public Biglietto(UUID idBiglietto, int idRivenditori, LocalDate emissioneTitoloViaggio, LocalDate timbratura, Utente utente, Mezzo mezzo, boolean validita) {
-        super(idBiglietto, idRivenditori, emissioneTitoloViaggio);
+      public Biglietto() {
+        }
+
+    public Biglietto(UUID idTitoloViaggio, Rivenditore rivenditore, LocalDate emissioneTitoloViaggio, boolean validita, LocalDate timbratura, Utente utente, Mezzo mezzo) {
+        super(idTitoloViaggio, rivenditore, emissioneTitoloViaggio);
+        this.validita = validita;
         this.timbratura = timbratura;
         this.utente = utente;
         this.mezzo = mezzo;
-        this.validita = validita;
-    }
-
-    public Biglietto() {
     }
 
     public boolean isValidita() {
@@ -62,14 +66,13 @@ private LocalDate timbratura;
     public void setMezzo(Mezzo mezzo) {
         this.mezzo = mezzo;
     }
-
     @Override
     public String toString() {
-        return "Biglietto{" +
+        return super.toString() + "Biglietto{" +
                 "validita=" + validita +
                 ", timbratura=" + timbratura +
                 ", utente=" + utente +
                 ", mezzo=" + mezzo +
-                "} " + super.toString();
+                '}';
     }
 }

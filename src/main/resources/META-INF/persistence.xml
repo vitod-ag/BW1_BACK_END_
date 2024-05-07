@@ -12,7 +12,7 @@
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bw1" />
             <property name="javax.persistence.jdbc.user" value="postgres" />
-            <property name="javax.persistence.jdbc.password" value="Dfeb43h8a2!" /> <!--QUI VA INSERITA LA PASSWORD-->
+            <property name="javax.persistence.jdbc.password" value="gianluca" /> <!--QUI VA INSERITA LA PASSWORD-->
             <property name="hibernate.default_schema" value="public" />
             <property name="hibernate.hbm2ddl.auto" value="update" /> <!--QUESTA PROPRIETA è UTLIZZABILE SOLO SE LE TABBELLE NON CI SONO,
             UPDATE == SE NON CI SONO LE CREA, SE CI SONO LE AGGIORNA-->

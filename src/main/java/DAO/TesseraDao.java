@@ -1,45 +1,46 @@
 package DAO;
 
+import entities.UtenteETessera.Tessera;
 import entities.UtenteETessera.Utente;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-public class UtenteDao {
+public class TesseraDao {
     private EntityManager em;
 
-    public UtenteDao(EntityManager em) {
+    public TesseraDao(EntityManager em) {
         this.em = em;
     }
 
-    public void save(Utente utente) {
+    public void save(Tessera tessera) {
         try {
             em.getTransaction().begin();
-            em.persist(utente);
+            em.persist(tessera);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
         }
     }
 
-    public Utente getById(Integer id) {
-        return em.find(Utente.class, id);
+    public Tessera getById(Integer id) {
+        return em.find(Tessera.class, id);
     }
 
-    public void delete(Utente utente) {
+    public void delete(Tessera tessera) {
         try {
             em.getTransaction().begin();
-            em.remove(utente);
+            em.remove(tessera);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
         }
     }
 
-    public void update(Utente utente) {
+    public void update(Tessera tessera) {
         EntityTransaction et = em.getTransaction();
         et.begin();
-        em.merge(utente);
+        em.merge(tessera);
         et.commit();
     }
 }

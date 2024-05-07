@@ -1,4 +1,6 @@
-package entities;
+package entities.UtenteETessera;
+
+import entities.TitoliViaggi.Biglietto;
 
 import javax.persistence.*;
 import java.time.LocalDate;

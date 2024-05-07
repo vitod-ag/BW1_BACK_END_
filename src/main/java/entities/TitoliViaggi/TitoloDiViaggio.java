@@ -1,4 +1,6 @@
-package entities;
+package entities.TitoliViaggi;
+
+import entities.Rivenditori.Rivenditore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,34 +16,32 @@ public class TitoloDiViaggio {
     private UUID idTitoloViaggio;
 
 
-    @Column(name = "id_rivenditori")
-    private int idRivenditori;
+    @ManyToOne
+    @JoinColumn(name = "id_rivenditori")
+    private Rivenditore rivenditore;
 
     private LocalDate emissioneTitoloViaggio;
-
-    public TitoloDiViaggio(UUID idTitoloViaggio, int idRivenditori, LocalDate emissioneTitoloViaggio) {
+    public TitoloDiViaggio() {    }
+    public TitoloDiViaggio(UUID idTitoloViaggio, Rivenditore rivenditore, LocalDate emissioneTitoloViaggio) {
         this.idTitoloViaggio = idTitoloViaggio;
-        this.idRivenditori = idRivenditori;
+        this.rivenditore = rivenditore;
         this.emissioneTitoloViaggio = emissioneTitoloViaggio;
     }
 
-    public TitoloDiViaggio() {
-    }
-
-    public int getIdRivenditori() {
-        return idRivenditori;
-    }
-
-    public void setIdRivenditori(int idRivenditori) {
-        this.idRivenditori = idRivenditori;
-    }
-
-    public UUID getIdBiglietto() {
+    public UUID getIdTitoloViaggio() {
         return idTitoloViaggio;
     }
 
-    public void setIdBiglietto(UUID idBiglietto) {
-        this.idTitoloViaggio = idBiglietto;
+    public void setIdTitoloViaggio(UUID idTitoloViaggio) {
+        this.idTitoloViaggio = idTitoloViaggio;
+    }
+
+    public Rivenditore getRivenditore() {
+        return rivenditore;
+    }
+
+    public void setRivenditore(Rivenditore rivenditore) {
+        this.rivenditore = rivenditore;
     }
 
     public LocalDate getEmissioneTitoloViaggio() {
@@ -51,12 +51,11 @@ public class TitoloDiViaggio {
     public void setEmissioneTitoloViaggio(LocalDate emissioneTitoloViaggio) {
         this.emissioneTitoloViaggio = emissioneTitoloViaggio;
     }
-
     @Override
     public String toString() {
-        return "TitoloDiViaggio{" +
-                "idBiglietto=" + idTitoloViaggio +
-                ", idRivenditori=" + idRivenditori +
+        return  "TitoloDiViaggio{" +
+                "idTitoloViaggio=" + idTitoloViaggio +
+                ", rivenditore=" + rivenditore +
                 ", emissioneTitoloViaggio=" + emissioneTitoloViaggio +
                 '}';
     }
