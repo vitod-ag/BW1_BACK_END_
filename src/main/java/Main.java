@@ -96,8 +96,11 @@ public class Main {
         DistributoreAutomatico distributoreAutomatico3 = new DistributoreAutomatico();
 
         distributoreAutomatico1.setStatoServizio(true);
+        distributoreAutomatico1.setNomeDistributore("DA1");
         distributoreAutomatico2.setStatoServizio(false);
+        distributoreAutomatico2.setNomeDistributore("DA2");
         distributoreAutomatico3.setStatoServizio(true);
+        distributoreAutomatico3.setNomeDistributore("DA3");
 
         rivenditoriDao.save(distributoreAutomatico1);
         rivenditoriDao.save(distributoreAutomatico2);
@@ -186,17 +189,17 @@ public class Main {
         Tram tram5 = new Tram();
         tram5.setTarga("MG540KA");
 
-        /*mezzoDao.save(autobus1);
+        mezzoDao.save(autobus1);
         mezzoDao.save(autobus2);
         mezzoDao.save(autobus3);
         mezzoDao.save(autobus4);
-        mezzoDao.save(autobus5);*/
+        mezzoDao.save(autobus5);
 
-       /* mezzoDao.save(tram1);
+        mezzoDao.save(tram1);
         mezzoDao.save(tram2);
         mezzoDao.save(tram3);
         mezzoDao.save(tram4);
-        mezzoDao.save(tram5);*/
+        mezzoDao.save(tram5);
         mezzoDao.saveAll(List.of(autobus1, autobus2, autobus3, autobus4, autobus5, tram1, tram2, tram3, tram4, tram5));
 
         //Utilizzo biglietti
@@ -207,48 +210,64 @@ public class Main {
         biglietto2.setMezzo(autobus1);
         biglietto2.setstatusValidita(true);
         biglietto2.setTimbratura(LocalDate.of(2024, 5, 7));
-
         titoloDiViaggioDao.save(biglietto1);
         titoloDiViaggioDao.save(biglietto2);
-
         //viaggi, tratte
         Tratta tratta1 = new Tratta();
         tratta1.setNomePartenza("Piazza Maggiore");
         tratta1.setNomeArrivo(("Stadio San Siro"));
-
         Tratta tratta2 = new Tratta();
         tratta1.setNomePartenza("Via Bella");
         tratta1.setNomeArrivo(("Piazza Grande"));
-
         StatusMezzo statusMezzo1 = new StatusMezzo();
         statusMezzo1.setMezzo(autobus1);
         statusMezzo1.setStatus(EnumStatus.IN_SERVIZIO);
         statusMezzo1.setDataInizio(LocalDate.of(2024, 1, 10));
-
-
         Viaggio viaggio1 = new Viaggio();
         viaggio1.setTempoEffettivo(LocalTime.of(0, 30));
         viaggio1.setNomeTratta("Viaggio");
-
         Viaggio viaggio2 = new Viaggio();
-        viaggio1.setTempoEffettivo(LocalTime.of(0, 30));
-        viaggio1.setNomeTratta("05/");
-
-        viaggio1.setMezzi(List.of(autobus1));
-
+        viaggio2.setTempoEffettivo(LocalTime.of(0, 30));
+        viaggio2.setNomeTratta("05/");
+        viaggio2.setMezzi(List.of(autobus1));
         trattaDao.saveAll(List.of(tratta1, tratta2));
         statusMezzoDao.save(statusMezzo1);
-
         trattaDao.save(tratta2);
         trattaDao.save(tratta1);
-
         viaggio1.setTratta(tratta1);
         viaggio2.setTratta(tratta2);
-
         viaggioDao.save(viaggio1);
         viaggioDao.save(viaggio2);
 
+        Biglietto biglietto7 = new Biglietto();
+        biglietto7.setUtente(u1);
+        biglietto7.setRivenditore(distributoreAutomatico1);
+        biglietto7.setEmissioneTitoloViaggio(LocalDate.of(2024, 10, 5));
+        titoloDiViaggioDao.save(biglietto7);
 
+        Biglietto biglietto8 = new Biglietto();
+        biglietto8.setUtente(u3);
+        biglietto8.setRivenditore(rivenditoreAutorizzato1);
+        biglietto8.setEmissioneTitoloViaggio(LocalDate.of(2024, 2, 10));
+        titoloDiViaggioDao.save(biglietto8);
+        // ---QUERY----
+//        Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi
+//         in un dato periodo di tempo in totale e per punto di emissione
+        System.out.println("QUERY.1");
+        List<CountRivenditoriViaggi> results = titoloDiViaggioDao.getTotaleBiglietti(LocalDate.of(2024, 1, 1),
+                LocalDate.of(2024, 12, 31));
+
+        results.forEach(result -> {
+            if (result.getRivenditore() instanceof RivenditoreAutorizzato) {
+                RivenditoreAutorizzato autorizzato = (RivenditoreAutorizzato) result.getRivenditore();
+                System.out.println(autorizzato.getNomeRivenditore() + " " + result.getNumTitoli());
+            } else if (result.getRivenditore() instanceof DistributoreAutomatico) {
+                DistributoreAutomatico distributore = (DistributoreAutomatico) result.getRivenditore();
+                System.out.println(distributore.getNomeDistributore() + " " + result.getNumTitoli());
+            } else {
+                System.out.println("Nessun risultato trovato");
+            }
+        });
 
 
     }

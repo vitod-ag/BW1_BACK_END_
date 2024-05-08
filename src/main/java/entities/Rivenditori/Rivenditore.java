@@ -41,7 +41,7 @@ public class Rivenditore {
     public String toString() {
         return "Rivenditore{" +
                 "idRivenditore=" + idRivenditore +
-                ", titoliDiViaggio=" + titoliDiViaggio +
+//                ", titoliDiViaggio=" + titoliDiViaggio +
                 '}';
     }
 }

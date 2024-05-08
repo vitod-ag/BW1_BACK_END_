@@ -69,18 +69,28 @@ public class TitoloDiViaggioDao {
 
     //parte delle query
 
-    /* -Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi in un dato periodo di tempo in totale e per punto di emissione*/
+//     -Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi
+//    in un dato periodo di tempo in totale e per punto di emissione
 
-  /*  public List<ElementoCatalogo> getElementoByAnnoPubblicazione(int anno){
-        Query query = em.createQuery("select e from ElementoCatalogo e where e.annoPubblicazione = :anno");
-        query.setParameter("anno",anno);
-        return query.getResultList();
-    }*/
 
-   /* select r.idrivenditore, count(t.*) as numTitoli from public.titoli_viaggio t
-    inner join public.rivenditori r
-    on t.id_rivenditori = r.idrivenditore where t.emissionetitoloviaggio
-    between '2024-01-01' and '2024-12-31' group by r.idrivenditore;*/
+
+
+ public List<CountRivenditoriViaggi> getTotaleBiglietti(LocalDate inizio, LocalDate fine) {
+     Query query = em.createQuery("SELECT new ResultDto.CountRivenditoriViaggi(t.rivenditore, COUNT(t) AS numTitoli) " +
+             "FROM TitoloDiViaggio t " +
+             "WHERE t.emissioneTitoloViaggio BETWEEN :startDate AND :endDate " +
+             "GROUP BY t.rivenditore"
+     );
+       query.setParameter("startDate", inizio);
+       query.setParameter("endDate", fine);
+       return query.getResultList();
+   }
+
+
+//    select r.idrivenditore, count(t.*) as numTitoli from public.titoli_viaggio t
+//    inner join public.rivenditori r
+//    on t.id_rivenditori = r.idrivenditore where t.emissionetitoloviaggio
+//    between '2024-01-01' and '2024-12-31' group by r.idrivenditore;
 
 
 }
