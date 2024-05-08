@@ -26,10 +26,7 @@ public class Main {
         u1.setCognome("Rossi");
         u1.setDataNascita(LocalDate.of(1990, 10, 10));
         t1.setUtente(u1);
-
         utenteDao.save(u1);
-
-
 
     }
 }
