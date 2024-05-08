@@ -40,6 +40,7 @@ public class DistributoreAutomatico extends Rivenditore {
     public String toString() {
         return super.toString()+"DistributoreAutomatico{" +
                 "statoServizio=" + statoServizio +
+                "nomeDistributore=" + nomeDistributore +
                 '}';
     }
 }

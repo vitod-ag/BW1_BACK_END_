@@ -59,4 +59,5 @@ public class TitoloDiViaggio {
                 ", emissioneTitoloViaggio=" + emissioneTitoloViaggio +
                 '}';
     }
+
 }

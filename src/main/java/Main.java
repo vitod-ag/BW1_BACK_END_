@@ -1,4 +1,5 @@
 import DAO.*;
+import ResultDto.CountRivenditoriViaggi;
 import entities.Rivenditori.DistributoreAutomatico;
 import entities.Rivenditori.Rivenditore;
 import entities.Rivenditori.RivenditoreAutorizzato;
@@ -23,6 +24,8 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class Main {
+    private static Viaggio viaggio2;
+
     //private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("bw1");
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("bw1");

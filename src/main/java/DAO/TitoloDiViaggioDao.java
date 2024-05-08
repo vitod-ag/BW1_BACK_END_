@@ -1,5 +1,6 @@
 package DAO;
 
+import ResultDto.CountRivenditoriViaggi;
 import entities.Rivenditori.Rivenditore;
 import entities.TitoliViaggi.TitoloDiViaggio;
 import entities.UtenteETessera.Utente;
