@@ -2,9 +2,11 @@ package DAO;
 
 import entities.Rivenditori.Rivenditore;
 import entities.UtenteETessera.Tessera;
+import entities.mezzi.Mezzo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.List;
 
 public class RivenditoriDao {
     private EntityManager em;
@@ -42,5 +44,23 @@ public class RivenditoriDao {
         et.begin();
         em.merge(rivenditore);
         et.commit();
+    }
+
+    public void saveAll(List<Rivenditore> rivenditori) {
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            for (Rivenditore rivenditore : rivenditori) {
+                //  System.out.println(rivenditore);
+                em.persist(rivenditore);
+            }
+            et.commit();
+            System.out.println("Prestiti salvati con successo");
+        } catch (Exception e) {
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+            System.out.println("Errore durante il salvataggio dei mezzi: " + e.getMessage());
+        }
     }
 }

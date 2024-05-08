@@ -1,10 +1,15 @@
 package DAO;
 
+import entities.Rivenditori.Rivenditore;
 import entities.TitoliViaggi.TitoloDiViaggio;
 import entities.UtenteETessera.Utente;
+import entities.mezzi.Mezzo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import java.time.LocalDate;
+import java.util.List;
 
 public class TitoloDiViaggioDao {
     private EntityManager em;
@@ -43,4 +48,39 @@ public class TitoloDiViaggioDao {
         em.merge(titoloDiViaggio);
         et.commit();
     }
+
+    public void saveAll(List<TitoloDiViaggio> titolodiviaggi) {
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            for (TitoloDiViaggio titolidiviaggio : titolodiviaggi) {
+                //  System.out.println(titolidiviaggio);
+                em.persist(titolidiviaggio);
+            }
+            et.commit();
+            System.out.println("Prestiti salvati con successo");
+        } catch (Exception e) {
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+            System.out.println("Errore durante il salvataggio dei mezzi: " + e.getMessage());
+        }
+    }
+
+    //parte delle query
+
+    /* -Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi in un dato periodo di tempo in totale e per punto di emissione*/
+
+  /*  public List<ElementoCatalogo> getElementoByAnnoPubblicazione(int anno){
+        Query query = em.createQuery("select e from ElementoCatalogo e where e.annoPubblicazione = :anno");
+        query.setParameter("anno",anno);
+        return query.getResultList();
+    }*/
+
+   /* select r.idrivenditore, count(t.*) as numTitoli from public.titoli_viaggio t
+    inner join public.rivenditori r
+    on t.id_rivenditori = r.idrivenditore where t.emissionetitoloviaggio
+    between '2024-01-01' and '2024-12-31' group by r.idrivenditore;*/
+
+
 }

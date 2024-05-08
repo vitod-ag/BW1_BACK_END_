@@ -9,9 +9,10 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
+@Table(name="biglietti")
 public class Biglietto extends TitoloDiViaggio {
 
-private boolean validita;
+private boolean statusValidita;
 
 private LocalDate timbratura;
 
@@ -27,20 +28,20 @@ private LocalDate timbratura;
       public Biglietto() {
         }
 
-    public Biglietto(UUID idTitoloViaggio, Rivenditore rivenditore, LocalDate emissioneTitoloViaggio, boolean validita, LocalDate timbratura, Utente utente, Mezzo mezzo) {
+    public Biglietto(UUID idTitoloViaggio, Rivenditore rivenditore, LocalDate emissioneTitoloViaggio, boolean statusValidita, LocalDate timbratura, Utente utente, Mezzo mezzo) {
         super(idTitoloViaggio, rivenditore, emissioneTitoloViaggio);
-        this.validita = validita;
+        this.statusValidita = statusValidita;
         this.timbratura = timbratura;
         this.utente = utente;
         this.mezzo = mezzo;
     }
 
     public boolean isValidita() {
-        return validita;
+        return statusValidita;
     }
 
-    public void setValidita(boolean validita) {
-        this.validita = validita;
+    public void setstatusValidita(boolean statusValidita) {
+        this.statusValidita = statusValidita;
     }
 
     public LocalDate getTimbratura() {
@@ -69,7 +70,7 @@ private LocalDate timbratura;
     @Override
     public String toString() {
         return super.toString() + "Biglietto{" +
-                "validita=" + validita +
+                "validita=" + statusValidita +
                 ", timbratura=" + timbratura +
                 ", utente=" + utente +
                 ", mezzo=" + mezzo +

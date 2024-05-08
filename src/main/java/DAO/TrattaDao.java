@@ -1,10 +1,12 @@
 package DAO;
 
+import entities.Rivenditori.Rivenditore;
 import entities.UtenteETessera.Tessera;
 import entities.ViaggioTratta.Tratta;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.List;
 
 public class TrattaDao {
     private EntityManager em;
@@ -42,5 +44,23 @@ public class TrattaDao {
         et.begin();
         em.merge(tratta);
         et.commit();
+    }
+
+    public void saveAll(List<Tratta> tratte) {
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            for (Tratta tratta : tratte) {
+                //  System.out.println(tratta);
+                em.persist(tratta);
+            }
+            et.commit();
+            System.out.println("Tratte salvati con successo");
+        } catch (Exception e) {
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+            System.out.println("Errore durante il salvataggio delle tratte: " + e.getMessage());
+        }
     }
 }

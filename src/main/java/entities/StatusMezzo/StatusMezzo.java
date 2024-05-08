@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "status_mezzo")
+@Table(name = "status_mezzi")
 public class StatusMezzo {
     @Id @GeneratedValue
     @Column(name = "id_status_mezzo")

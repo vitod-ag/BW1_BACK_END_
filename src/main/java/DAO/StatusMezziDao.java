@@ -2,9 +2,11 @@ package DAO;
 
 import entities.StatusMezzo.StatusMezzo;
 import entities.UtenteETessera.Tessera;
+import entities.mezzi.Mezzo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.List;
 
 public class StatusMezziDao {
     private EntityManager em;
@@ -42,5 +44,23 @@ public class StatusMezziDao {
         et.begin();
         em.merge(statusMezzi);
         et.commit();
+    }
+
+    public void saveAll(List<StatusMezzo> statusMezzi) {
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            for (StatusMezzo stusMezzo : statusMezzi) {
+               // System.out.println(stusMezzo);
+                em.persist(stusMezzo);
+            }
+            et.commit();
+            System.out.println("Prestiti salvati con successo");
+        } catch (Exception e) {
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+            System.out.println("Errore durante il salvataggio dei statusMezzi: " + e.getMessage());
+        }
     }
 }

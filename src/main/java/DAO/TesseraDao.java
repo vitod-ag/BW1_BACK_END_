@@ -1,10 +1,12 @@
 package DAO;
 
+import entities.Rivenditori.Rivenditore;
 import entities.UtenteETessera.Tessera;
 import entities.UtenteETessera.Utente;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.List;
 
 public class TesseraDao {
     private EntityManager em;
@@ -42,5 +44,23 @@ public class TesseraDao {
         et.begin();
         em.merge(tessera);
         et.commit();
+    }
+
+    public void saveAll(List<Tessera> tessere) {
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            for (Tessera tessera : tessere) {
+                //  System.out.println(tessere);
+                em.persist(tessera);
+            }
+            et.commit();
+            System.out.println("Tessere salvate con successo");
+        } catch (Exception e) {
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+            System.out.println("Errore durante il salvataggio delle tessere: " + e.getMessage());
+        }
     }
 }

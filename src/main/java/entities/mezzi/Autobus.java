@@ -3,9 +3,12 @@ package entities.mezzi;
 import entities.TitoliViaggi.Biglietto;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.UUID;
-
+@Entity
+@Table(name = "mezzi_autobus")
 public class Autobus extends Mezzo{
     @Column(name = "capienza_max")
     protected static final int CAPIENZA_MAX = 40;

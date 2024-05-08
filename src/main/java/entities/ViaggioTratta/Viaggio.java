@@ -19,11 +19,12 @@ public class Viaggio {
     private String nomeTratta;
     @ManyToMany
     @JoinTable(
-            name="viaggo_mezzo",
+            name="viaggi_mezzo",
             joinColumns = @JoinColumn(name="id_viaggio"),
             inverseJoinColumns = @JoinColumn(name="id_mezzo")
     )
     private List<Mezzo> mezzi;
+
     @ManyToOne
     @JoinColumn(name = "id_tratta")
     private Tratta tratta;
@@ -62,6 +63,10 @@ public class Viaggio {
 
     public List<Mezzo> getMezzi() {
         return mezzi;
+    }
+
+    public void setTratta(Tratta tratta) {
+        this.tratta = tratta;
     }
 
     public void setMezzi(List<Mezzo> mezzi) {

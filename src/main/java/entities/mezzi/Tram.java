@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "mezzo_tram")
+@Table(name = "mezzi_tram")
 public class Tram extends Mezzo{
     @Column(name = "capienza_max")
     protected static final int CAPIENZA_MAX = 300;
