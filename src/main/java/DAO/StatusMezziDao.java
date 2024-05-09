@@ -3,6 +3,7 @@ package DAO;
 import entities.StatusMezzo.StatusMezzo;
 import entities.UtenteETessera.Tessera;
 import entities.mezzi.Mezzo;
+import enums.EnumStatus;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -65,21 +66,23 @@ public class StatusMezziDao {
             }
             System.out.println("Errore durante il salvataggio dei statusMezzi: " + e.getMessage());
         }
-
-       /* public List<Mezzo> getStatus(String targa) {
-            LocalDate dataOggi = LocalDate.now();
-
-
-            Query query = em.createQuery("SELECT a.scadenza FROM Abbonamento a WHERE a.tessera.idTessera = :idNumeroTessera");
-            query.setParameter("idNumeroTessera", targa);
-
-            LocalDate scadenzaAbbonamento = (LocalDate) query.getSingleResult();
-            if (dataOggi.isAfter(scadenzaAbbonamento)) {
-                System.out.println("Abbonamento scaduto in data: "+scadenzaAbbonamento);
-            } else {
-                System.out.println("Abbonamento valido fino al: " + scadenzaAbbonamento);
-            }
-        }*/
-
+    }
+    //stampa tutti i mezzi di uno stato
+    public void getStatusMezzi(EnumStatus status){
+        Query query = em.createQuery("Select s from StatusMezzo s where status like :status");
+        query.setParameter("status", status);
+        List<StatusMezzo> statusMezzi = query.getResultList();
+        for (StatusMezzo statusMezzo : statusMezzi) {
+            System.out.println(statusMezzo);
+        }
+    }
+    //stampa solo i stati di un mezzo ricercato
+    public  void getStatusMezzo(String id,EnumStatus status){
+        UUID uuid=UUID.fromString(id);
+        Query query= em.createQuery("select s from StatusMezzo s where status like :status AND s.mezzo.idMezzo= :uuid ");
+        query.setParameter("status", status);
+        query.setParameter("uuid", uuid);
+        List<StatusMezzo> statusMezzi = query.getResultList();
+        statusMezzi.forEach(System.out::println);
     }
 }

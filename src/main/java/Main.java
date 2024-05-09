@@ -42,7 +42,6 @@ public class Main {
 
 
         //UTENTE 1---------------- CON TESSERA------------
-/*
         //Tessera
         Tessera t1 = new Tessera();
         t1.setEmissione(LocalDate.of(2022, 10, 10));
@@ -59,7 +58,7 @@ public class Main {
         //UTENTE 2---------------- CON TESSERA------------
 
         Tessera t2 = new Tessera();
-        t2.setEmissione(LocalDate.of(2023, 6, 20));
+        t2.setEmissione(LocalDate.of(2023, 5, 12));
         tesseraDao.save(t2);
         Utente u2 = new Utente();
         u2.setNome("Roberta");
@@ -222,10 +221,22 @@ public class Main {
         Tratta tratta2 = new Tratta();
         tratta1.setNomePartenza("Via Bella");
         tratta1.setNomeArrivo(("Piazza Grande"));
+
         StatusMezzo statusMezzo1 = new StatusMezzo();
         statusMezzo1.setMezzo(autobus1);
         statusMezzo1.setStatus(EnumStatus.IN_SERVIZIO);
         statusMezzo1.setDataInizio(LocalDate.of(2024, 1, 10));
+
+        StatusMezzo statusMezzo2 = new StatusMezzo();
+        statusMezzo2.setMezzo(autobus1);
+        statusMezzo2.setStatus(EnumStatus.IN_MANUTENZIONE);
+        statusMezzo2.setDataInizio(LocalDate.of(2023, 12, 10));
+        statusMezzo2.setDataFine(LocalDate.of(2024, 1, 10));
+
+
+
+
+
         Viaggio viaggio1 = new Viaggio();
         viaggio1.setTempoEffettivo(LocalTime.of(0, 30));
         viaggio1.setNomeTratta("Viaggio");
@@ -235,6 +246,7 @@ public class Main {
         viaggio2.setMezzi(List.of(autobus1));
         trattaDao.saveAll(List.of(tratta1, tratta2));
         statusMezzoDao.save(statusMezzo1);
+        statusMezzoDao.save(statusMezzo2);
         trattaDao.save(tratta2);
         trattaDao.save(tratta1);
         viaggio1.setTratta(tratta1);
@@ -253,7 +265,6 @@ public class Main {
         biglietto8.setRivenditore(rivenditoreAutorizzato1);
         biglietto8.setEmissioneTitoloViaggio(LocalDate.of(2024, 2, 10));
         titoloDiViaggioDao.save(biglietto8);
-*/
 
 //        ---QUERY----
 //        Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi
@@ -290,6 +301,15 @@ public class Main {
 //        Deve essere possibile tenere traccia della scadenza degli abbonamenti dato il numero della tessera di un utente
        tesseraDao.getValiditaTessera("61916754-b5b9-4df8-b888-39d2d8fa0ec3");
 
+
+        System.out.println();
+        System.out.println("Query.4");
+        //--query 4 StatusMezzi --
+        statusMezzoDao.getStatusMezzi(EnumStatus.IN_MANUTENZIONE);
+        System.out.println();
+        System.out.println("Query.5");
+        //--query 5 statusMezzo
+        statusMezzoDao.getStatusMezzo("3aca5c81-2d1c-48b7-8216-ed86ef1ff0a7",EnumStatus.IN_MANUTENZIONE);
 
 
     }
