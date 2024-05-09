@@ -59,7 +59,7 @@ public class Main {
         //UTENTE 2---------------- CON TESSERA------------
 
         Tessera t2 = new Tessera();
-        t2.setEmissione(LocalDate.of(2023, 5, 12));
+        t2.setEmissione(LocalDate.of(2023, 6, 20));
         tesseraDao.save(t2);
         Utente u2 = new Utente();
         u2.setNome("Roberta");
@@ -255,9 +255,9 @@ public class Main {
         titoloDiViaggioDao.save(biglietto8);
 */
 
-        // ---QUERY----
+//        ---QUERY----
 //        Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi
-//         in un dato periodo di tempo in totale e per punto di emissione
+//        in un dato periodo di tempo in totale e per punto di emissione
         System.out.println("QUERY.1");
         List<CountRivenditoriViaggi> results = titoloDiViaggioDao.getTotaleBiglietti(LocalDate.of(2024, 1, 1),
                 LocalDate.of(2024, 12, 31));
@@ -274,15 +274,21 @@ public class Main {
             }
         });
 
-        System.out.println();
-        System.out.println("Query.2");
-
-        // ---QUERY 2----
+//         ---QUERY 2----
 //        Deve essere possibile tenere traccia della scadenza degli abbonamenti dato il numero della tessera di un utente
+
+        System.out.println();
+        System.out.println("QUERY.2");
+
 
         titoloDiViaggioDao.getStatoAbbonamento3("cabdea43-4e66-441e-8074-a2d18200e90b");
 
+        System.out.println();
+        System.out.println("QUERY.3");
 
+        // ---QUERY 3----
+//        Deve essere possibile tenere traccia della scadenza degli abbonamenti dato il numero della tessera di un utente
+       tesseraDao.getValiditaTessera("61916754-b5b9-4df8-b888-39d2d8fa0ec3");
 
 
 
