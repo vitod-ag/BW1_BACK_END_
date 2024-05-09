@@ -1,7 +1,6 @@
 package DAO;
 
-import entities.Rivenditori.Rivenditore;
-import entities.UtenteETessera.Tessera;
+
 import entities.ViaggioTratta.Viaggio;
 import entities.mezzi.Mezzo;
 
@@ -76,7 +75,24 @@ public class ViaggioDao {
         query.setParameter("idTratta", idTratta);
         query.setParameter("mezzo", mezzo);
         return (long) query.getSingleResult();
+
     }
+
+    public List<LocalTime> tempoEffettivoTratta(String idMezzo, int idTratta) {
+        UUID uuidMezzo = UUID.fromString(idMezzo);
+        Mezzo mezzo = em.find(Mezzo.class, uuidMezzo);
+
+        // Query per il tempo effettivo di ogni viaggio
+        Query tempoQuery = em.createQuery("SELECT v.tempoEffettivo FROM Viaggio v WHERE v.tratta.idTratta = :idTratta AND :mezzo MEMBER OF v.mezzi");
+        tempoQuery.setParameter("idTratta", idTratta);
+        tempoQuery.setParameter("mezzo", mezzo);
+
+
+
+        return tempoQuery.getResultList();
+
+    }
+
 
     //query tempo effettivo tratte
 
