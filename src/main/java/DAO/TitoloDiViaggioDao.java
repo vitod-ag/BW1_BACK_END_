@@ -122,14 +122,14 @@ public void getStatoAbbonamento3(String idNumeroTessera) {
     LocalDate dataOggi = LocalDate.now();
     UUID idNumeroTesString = UUID.fromString(idNumeroTessera);
 
-    Query query = em.createQuery("SELECT NEW ResultDto.StatoAbbonamento(u.nome, a.scadenza) FROM Abbonamento a JOIN a.tessera t JOIN t.utente u WHERE t.idTessera = :idNumeroTessera");
+    Query query = em.createQuery("SELECT NEW ResultDto.StatoAbbonamento(u.nome,u.cognome, a.scadenza) FROM Abbonamento a JOIN a.tessera t JOIN t.utente u WHERE t.idTessera = :idNumeroTessera");
     query.setParameter("idNumeroTessera", idNumeroTesString);
 
     StatoAbbonamento statoAbbonamento;
     try {
         statoAbbonamento = (StatoAbbonamento) query.getSingleResult();
         if (statoAbbonamento != null) {
-            System.out.println("Nome proprietario tessera: " + statoAbbonamento.getNomeTessera());
+            System.out.println("Nome proprietario tessera: " + statoAbbonamento.getNomeTessera()+" "+statoAbbonamento.getCognomeTessera());
             System.out.println("Scadenza abbonamento: " + statoAbbonamento.getScadenzaAbbonamento());
         } else {
             System.out.println("Nessun abbonamento trovato per il numero di tessera specificato.");
