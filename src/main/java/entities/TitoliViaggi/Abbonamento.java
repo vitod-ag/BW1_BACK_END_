@@ -61,7 +61,7 @@ public class Abbonamento extends TitoloDiViaggio {
     public String toString() {
         return super.toString() + "Abbonamento{" +
                 "emissione=" + emissione +
-                ", tessera=" + tessera +
+                /*", tessera=" + tessera +*/
                 '}';
     }
 }

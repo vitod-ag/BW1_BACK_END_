@@ -80,10 +80,10 @@ public class Tessera {
     public String toString() {
         return "Tessera{" +
                 "idTessera=" + idTessera +
-                ", abbonamento=" + abbonamento +
+                /*", abbonamento=" + abbonamento +*/
                 ", emissione=" + emissione +
                 ", scadenza=" + scadenza +
-                ", utente=" + utente +
+                /*", utente=" + utente +*/
                 '}';
     }
 }

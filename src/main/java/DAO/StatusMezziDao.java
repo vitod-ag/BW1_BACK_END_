@@ -6,7 +6,10 @@ import entities.mezzi.Mezzo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class StatusMezziDao {
     private EntityManager em;
@@ -62,5 +65,21 @@ public class StatusMezziDao {
             }
             System.out.println("Errore durante il salvataggio dei statusMezzi: " + e.getMessage());
         }
+
+       /* public List<Mezzo> getStatus(String targa) {
+            LocalDate dataOggi = LocalDate.now();
+
+
+            Query query = em.createQuery("SELECT a.scadenza FROM Abbonamento a WHERE a.tessera.idTessera = :idNumeroTessera");
+            query.setParameter("idNumeroTessera", targa);
+
+            LocalDate scadenzaAbbonamento = (LocalDate) query.getSingleResult();
+            if (dataOggi.isAfter(scadenzaAbbonamento)) {
+                System.out.println("Abbonamento scaduto in data: "+scadenzaAbbonamento);
+            } else {
+                System.out.println("Abbonamento valido fino al: " + scadenzaAbbonamento);
+            }
+        }*/
+
     }
 }

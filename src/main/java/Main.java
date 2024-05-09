@@ -42,7 +42,7 @@ public class Main {
 
 
         //UTENTE 1---------------- CON TESSERA------------
-
+/*
         //Tessera
         Tessera t1 = new Tessera();
         t1.setEmissione(LocalDate.of(2022, 10, 10));
@@ -253,6 +253,8 @@ public class Main {
         biglietto8.setRivenditore(rivenditoreAutorizzato1);
         biglietto8.setEmissioneTitoloViaggio(LocalDate.of(2024, 2, 10));
         titoloDiViaggioDao.save(biglietto8);
+*/
+
         // ---QUERY----
 //        Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi
 //         in un dato periodo di tempo in totale e per punto di emissione
@@ -271,6 +273,17 @@ public class Main {
                 System.out.println("Nessun risultato trovato");
             }
         });
+
+        System.out.println();
+        System.out.println("Query.2");
+
+        // ---QUERY 2----
+//        Deve essere possibile tenere traccia della scadenza degli abbonamenti dato il numero della tessera di un utente
+
+        titoloDiViaggioDao.getStatoAbbonamento3("cabdea43-4e66-441e-8074-a2d18200e90b");
+
+
+
 
 
     }
