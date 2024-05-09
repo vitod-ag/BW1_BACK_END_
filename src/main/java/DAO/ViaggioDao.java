@@ -3,10 +3,14 @@ package DAO;
 import entities.Rivenditori.Rivenditore;
 import entities.UtenteETessera.Tessera;
 import entities.ViaggioTratta.Viaggio;
+import entities.mezzi.Mezzo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.UUID;
 
 public class ViaggioDao {
     private EntityManager em;
@@ -62,4 +66,18 @@ public class ViaggioDao {
             System.out.println("Errore durante il salvataggio dei viaggi: " + e.getMessage());
         }
     }
+
+    //query: numero viaggi per tratta dato un mezzo
+
+    public long contaViaggiByMezzoAndTratta(String idMezzo, int idTratta) {
+        UUID uuidMezzo = UUID.fromString(idMezzo);
+        Mezzo mezzo = em.find(Mezzo.class, uuidMezzo);
+        Query query = em.createQuery("SELECT COUNT(v) FROM Viaggio v WHERE v.tratta.idTratta = :idTratta AND :mezzo MEMBER OF v.mezzi");
+        query.setParameter("idTratta", idTratta);
+        query.setParameter("mezzo", mezzo);
+        return (long) query.getSingleResult();
+    }
+
+    //query tempo effettivo tratte
+
 }

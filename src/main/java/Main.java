@@ -22,6 +22,7 @@ import javax.persistence.Persistence;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.UUID;
 
 public class Main {
     private static Viaggio viaggio2;
@@ -41,7 +42,7 @@ public class Main {
         StatusMezziDao statusMezzoDao = new StatusMezziDao(em);
 
 
-        //UTENTE 1---------------- CON TESSERA------------
+/*        //UTENTE 1---------------- CON TESSERA------------
         //Tessera
         Tessera t1 = new Tessera();
         t1.setEmissione(LocalDate.of(2022, 10, 10));
@@ -244,6 +245,17 @@ public class Main {
         viaggio2.setTempoEffettivo(LocalTime.of(0, 30));
         viaggio2.setNomeTratta("05/");
         viaggio2.setMezzi(List.of(autobus1));
+
+        Viaggio viaggioX = new Viaggio();
+        viaggioX.setMezzi(List.of(autobus1));
+        viaggioX.setTempoEffettivo(LocalTime.of(0, 10));
+
+        viaggioX.setTratta(tratta1);
+        viaggioX.setNomeTratta("altroV");
+
+
+
+
         trattaDao.saveAll(List.of(tratta1, tratta2));
         statusMezzoDao.save(statusMezzo1);
         statusMezzoDao.save(statusMezzo2);
@@ -253,6 +265,7 @@ public class Main {
         viaggio2.setTratta(tratta2);
         viaggioDao.save(viaggio1);
         viaggioDao.save(viaggio2);
+        viaggioDao.save(viaggioX);
 
         Biglietto biglietto7 = new Biglietto();
         biglietto7.setUtente(u1);
@@ -264,7 +277,7 @@ public class Main {
         biglietto8.setUtente(u3);
         biglietto8.setRivenditore(rivenditoreAutorizzato1);
         biglietto8.setEmissioneTitoloViaggio(LocalDate.of(2024, 2, 10));
-        titoloDiViaggioDao.save(biglietto8);
+        titoloDiViaggioDao.save(biglietto8);*/
 
 //        ---QUERY----
 //        Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi
@@ -276,14 +289,17 @@ public class Main {
         results.forEach(result -> {
             if (result.getRivenditore() instanceof RivenditoreAutorizzato) {
                 RivenditoreAutorizzato autorizzato = (RivenditoreAutorizzato) result.getRivenditore();
-                System.out.println(autorizzato.getNomeRivenditore() + " " + result.getNumTitoli());
+                System.out.println("Il rivenditore autorizzato '"+ autorizzato.getNomeRivenditore() + "'" + " ha emesso " + result.getNumTitoli() + " titolo/i di viaggio.");
             } else if (result.getRivenditore() instanceof DistributoreAutomatico) {
                 DistributoreAutomatico distributore = (DistributoreAutomatico) result.getRivenditore();
-                System.out.println(distributore.getNomeDistributore() + " " + result.getNumTitoli());
+                System.out.println("Il distributore '" + distributore.getNomeDistributore() + "'" + " ha emesso " + result.getNumTitoli() + " titolo/i di viaggio.");
             } else {
-                System.out.println("Nessun risultato trovato");
+                System.out.println("Nessun risultato trovato.");
             }
         });
+
+/*
+titoloDiViaggioDao.getStatoAbbonamento(UUID.fromString("755cdf66-343b-4c09-8950-01264e3d65d0"));*/
 
 //         ---QUERY 2----
 //        Deve essere possibile tenere traccia della scadenza degli abbonamenti dato il numero della tessera di un utente
@@ -309,7 +325,39 @@ public class Main {
         System.out.println();
         System.out.println("Query.5");
         //--query 5 statusMezzo
-        statusMezzoDao.getStatusMezzo("3aca5c81-2d1c-48b7-8216-ed86ef1ff0a7",EnumStatus.IN_MANUTENZIONE);
+       /* statusMezzoDao.getStatusMezzo("3aca5c81-2d1c-48b7-8216-ed86ef1ff0a7",EnumStatus.IN_MANUTENZIONE);*/
+
+        //query: numero viaggi per tratta dato un mezzo
+
+ /*Tratta tratta1 = new Tratta();
+        tratta1.setNomePartenza("Piazza Maggiore");
+        tratta1.setNomeArrivo(("Stadio San Siro"));
+        Tratta tratta2 = new Tratta();
+        tratta2.setNomePartenza("Stadio San Siro");
+        tratta2.setNomeArrivo(("Piazza Maggiore"));
+        trattaDao.saveAll(List.of(tratta1,tratta2));
+
+        Tram tram1=new Tram();
+        tram1.setTarga("ly789ly");
+        mezzoDao.save(tram1);
+
+        Viaggio v1= new Viaggio();
+        v1.setNomeTratta("1");
+        v1.setTratta(tratta1);
+        v1.setMezzi(List.of(tram1));
+        Viaggio v2= new Viaggio();
+        v2.setNomeTratta("1");
+        v2.setTratta(tratta1);
+        v2.setMezzi(List.of(tram1));
+        Viaggio v3= new Viaggio();
+        v3.setNomeTratta("1");
+        v3.setTratta(tratta1);
+        v3.setMezzi(List.of(tram1));
+        viaggioDao.saveAll(List.of(v1,v2,v3));*/
+
+
+     //query: numero viaggi per tratta dato un mezzo
+        System.out.println(viaggioDao.contaViaggiByMezzoAndTratta("531b598e-447d-4427-a727-2ab1724222be", 9));
 
 
     }

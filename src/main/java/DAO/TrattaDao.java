@@ -6,6 +6,8 @@ import entities.ViaggioTratta.Tratta;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import java.time.LocalTime;
 import java.util.List;
 
 public class TrattaDao {
@@ -63,4 +65,8 @@ public class TrattaDao {
             System.out.println("Errore durante il salvataggio delle tratte: " + e.getMessage());
         }
     }
+
+     //Query per ottenere tempo effettivo
+
+
 }
