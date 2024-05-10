@@ -27,7 +27,7 @@ import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("bw1");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BW1-back-and");
         EntityManager em = emf.createEntityManager();
 
         UtenteDao utenteDao = new UtenteDao(em);
@@ -41,7 +41,7 @@ public class Main {
         //-----------------------------------------------------------------
 
 
-        //DISTRIBUTORI AUTOMATICI-------------------------------------------------------
+  /*      //DISTRIBUTORI AUTOMATICI-------------------------------------------------------
 
         DistributoreAutomatico distributoreAutomatico1 = new DistributoreAutomatico();
         DistributoreAutomatico distributoreAutomatico2 = new DistributoreAutomatico();
@@ -223,17 +223,93 @@ public class Main {
         Tram tram5 = new Tram();
         tram5.setTarga("MG540KA");
         mezzoDao.saveAll(List.of(autobus1, autobus2, autobus3, autobus4, autobus5, tram1, tram2, tram3, tram4, tram5));
-        //STATUSmEZZI
-        StatusMezzo statusMezzo2 = new StatusMezzo();
-        statusMezzo2.setMezzo(autobus1);
-        statusMezzo2.setStatus(EnumStatus.IN_MANUTENZIONE);
-        statusMezzo2.setDataInizio(LocalDate.of(2023, 12, 10));
-        statusMezzo2.setDataFine(LocalDate.of(2024, 1, 10));
 
-        StatusMezzo statusMezzo1 = new StatusMezzo();
+        //STATUS MEZZI che cambiano nel tempo
+        StatusMezzo statusMezzo1 = new StatusMezzo();// autobus1 in servizio dal 10/01/2024 al 30/02/2024
         statusMezzo1.setMezzo(autobus1);
         statusMezzo1.setStatus(EnumStatus.IN_SERVIZIO);
-        statusMezzo1.setDataInizio(LocalDate.of(2024, 1, 10));
+        statusMezzo1.setDataInizio(LocalDate.of(2023, 1, 10));
+        statusMezzo1.setDataFine(LocalDate.of(2023, 2, 28));
+        statusMezzoDao.save(statusMezzo1);
+
+        StatusMezzo statusMezzo1a = new StatusMezzo(); // autobus1 in manutenzione
+        statusMezzo1a.setMezzo(autobus1);
+        statusMezzo1a.setStatus(EnumStatus.IN_MANUTENZIONE);
+        statusMezzo1a.setDataInizio(LocalDate.of(2023, 3, 1));
+        statusMezzo1a.setDataFine(LocalDate.of(2023, 12, 30));
+        statusMezzoDao.save(statusMezzo1a);
+
+        StatusMezzo statusMezzo1b = new StatusMezzo();// autobus1 in servizio
+        statusMezzo1b.setMezzo(autobus1);
+        statusMezzo1b.setStatus(EnumStatus.IN_SERVIZIO);
+        statusMezzo1b.setDataInizio(LocalDate.of(2024, 1, 15));
+        statusMezzoDao.save(statusMezzo1b);
+
+        StatusMezzo statusMezzo2 = new StatusMezzo();
+        statusMezzo2.setMezzo(autobus2);
+        statusMezzo2.setStatus(EnumStatus.IN_MANUTENZIONE);
+        statusMezzo2.setDataInizio(LocalDate.of(2023, 12, 10));
+        statusMezzoDao.save(statusMezzo2);
+
+        StatusMezzo statusMezzo3 = new StatusMezzo();
+        statusMezzo3.setMezzo(autobus3);
+        statusMezzo3.setStatus(EnumStatus.IN_SERVIZIO);
+        statusMezzo3.setDataInizio(LocalDate.of(2023, 12, 10));
+        statusMezzoDao.save(statusMezzo3);
+
+        StatusMezzo statusMezzo4 = new StatusMezzo();
+        statusMezzo4.setMezzo(autobus4);
+        statusMezzo4.setStatus(EnumStatus.IN_MANUTENZIONE);
+        statusMezzo4.setDataInizio(LocalDate.of(2023, 12, 10));
+        statusMezzoDao.save(statusMezzo4);
+
+        StatusMezzo statusMezzo5 = new StatusMezzo();
+        statusMezzo5.setMezzo(autobus5);
+        statusMezzo5.setStatus(EnumStatus.IN_SERVIZIO);
+        statusMezzo5.setDataInizio(LocalDate.of(2023, 12, 10));
+        statusMezzoDao.save(statusMezzo5);
+
+        StatusMezzo statusMezzo6 = new StatusMezzo();
+        statusMezzo6.setMezzo(tram1);
+        statusMezzo6.setStatus(EnumStatus.IN_MANUTENZIONE);
+        statusMezzo6.setDataInizio(LocalDate.of(2023, 12, 10));
+        statusMezzoDao.save(statusMezzo6);
+
+
+        StatusMezzo statusMezzo7 = new StatusMezzo();
+        statusMezzo7.setMezzo(tram2);
+        statusMezzo7.setStatus(EnumStatus.IN_MANUTENZIONE);
+        statusMezzo7.setDataInizio(LocalDate.of(1995, 5, 10));
+        statusMezzo7.setDataFine(LocalDate.of(2005, 6, 10));
+        statusMezzoDao.save(statusMezzo7);
+        StatusMezzo statusMezzo7a = new StatusMezzo();
+        statusMezzo7a.setMezzo(tram2);
+        statusMezzo7a.setStatus(EnumStatus.IN_SERVIZIO);
+        statusMezzo7a.setDataInizio(LocalDate.of(2005, 6, 11));
+        statusMezzoDao.save(statusMezzo7a);
+
+
+        StatusMezzo statusMezzo8 = new StatusMezzo();
+        statusMezzo8.setMezzo(tram3);
+        statusMezzo8.setStatus(EnumStatus.IN_MANUTENZIONE);
+        statusMezzo8.setDataInizio(LocalDate.of(2019, 12, 10));
+        statusMezzo7.setDataFine(LocalDate.of(2020, 1, 20));
+        statusMezzoDao.save(statusMezzo8);
+
+
+        StatusMezzo statusMezzo9 = new StatusMezzo();
+        statusMezzo9.setMezzo(tram4);
+        statusMezzo9.setStatus(EnumStatus.IN_SERVIZIO);
+        statusMezzo9.setDataInizio(LocalDate.of(2020, 10, 10));
+        statusMezzoDao.save(statusMezzo9);
+
+
+        StatusMezzo statusMezzo10 = new StatusMezzo();
+        statusMezzo10.setMezzo(tram5);
+        statusMezzo10.setStatus(EnumStatus.IN_MANUTENZIONE);
+        statusMezzo10.setDataInizio(LocalDate.of(2023, 12, 10));
+        statusMezzoDao.save(statusMezzo10);
+
 
 
 
@@ -247,97 +323,81 @@ public class Main {
         biglietto1b.setstatusValidita(true);
         biglietto1b.setTimbratura(LocalDate.of(2024, 5, 9));
 
-        biglietto2.setMezzo(autobus1);
+        biglietto2.setMezzo(tram3);
         biglietto2.setstatusValidita(true);
         biglietto2.setTimbratura(LocalDate.of(2024, 5, 7));
-        
-        titoloDiViaggioDao.save(biglietto1a);
-        titoloDiViaggioDao.save(biglietto1b);
-        titoloDiViaggioDao.save(biglietto2);
 
+        titoloDiViaggioDao.saveAll(List.of(biglietto1a,biglietto1b,biglietto2));
 
-
-
-
-
-
-
-        //ANDATA
+        //RELAZIONE MEZZI VIAGGIO
+//ANDATA
         Viaggio viaggio1 = new Viaggio();
-        viaggio1.setTempoEffettivo(LocalTime.of(0, 30));
+        viaggio1.setTempoEffettivo(LocalTime.of(0, 25,3));
         viaggio1.setNomeTratta("Andata");
         viaggio1.setMezzi(List.of(autobus1));
 
         //RITORNO
         Viaggio viaggio2 = new Viaggio();
-        viaggio2.setTempoEffettivo(LocalTime.of(0, 30));
+        viaggio2.setTempoEffettivo(LocalTime.of(0, 43,14));
         viaggio2.setNomeTratta("Ritorno");
         viaggio2.setMezzi(List.of(autobus1));
 
+        Viaggio viaggio3 = new Viaggio();
+        viaggio3.setTempoEffettivo(LocalTime.of(0, 28,45));
+        viaggio3.setNomeTratta("Notturno");
+        viaggio3.setMezzi(List.of(autobus1,autobus5,autobus4));
 
 
+        Viaggio viaggio4 = new Viaggio();
+        viaggio4.setTempoEffettivo(LocalTime.of(1, 30,24));
+        viaggio4.setNomeTratta("Notturno");
+        viaggio4.setMezzi(List.of(tram4,tram5));
 
 
-        trattaDao.saveAll(List.of(tratta1));
-        statusMezzoDao.save(statusMezzo1);
-        statusMezzoDao.save(statusMezzo2);
+        Viaggio viaggio5 = new Viaggio();
+        viaggio5.setTempoEffettivo(LocalTime.of(4, 30,54));
+        viaggio5.setNomeTratta("Andata");
+        viaggio5.setMezzi(List.of(tram1,tram3));
 
-        //Salvo tratta 1
-        trattaDao.save(tratta1);
+        Viaggio viaggio6 = new Viaggio();
+        viaggio6.setTempoEffettivo(LocalTime.of(0, 37,27));
+        viaggio6.setNomeTratta("Notturno");
+        viaggio6.setMezzi(List.of(autobus2,tram3));
 
-        //La tratta 1 ha sia andata che ritorno
+        Viaggio viaggio7 = new Viaggio();
+        viaggio7.setTempoEffettivo(LocalTime.of(0, 42,12));
+        viaggio7.setNomeTratta("Notturno");
+        viaggio7.setMezzi(List.of(autobus5,autobus3));
+
+        Viaggio viaggio8 = new Viaggio();
+        viaggio8.setTempoEffettivo(LocalTime.of(3, 26,40));
+        viaggio8.setNomeTratta("Notturno");
+        viaggio8.setMezzi(List.of(tram2));
+
+
+        viaggioDao.saveAll(List.of(viaggio1,viaggio2,viaggio3,viaggio4,viaggio5,viaggio6,viaggio7,viaggio8));
+
+    //TRATTE TO VIAGGIO
         viaggio1.setTratta(tratta1);
         viaggio2.setTratta(tratta1);
-
-        viaggioDao.save(viaggio1);
-        viaggioDao.save(viaggio2);
-
-        Biglietto biglietto7 = new Biglietto();
-        biglietto7.setUtente(u1);
-        biglietto7.setRivenditore(distributoreAutomatico1);
-        biglietto7.setEmissioneTitoloViaggio(LocalDate.of(2024, 10, 5));
-        titoloDiViaggioDao.save(biglietto7);
-
-        Biglietto biglietto8 = new Biglietto();
-        biglietto8.setUtente(u3);
-        biglietto8.setRivenditore(rivenditoreAutorizzato1);
-        biglietto8.setEmissioneTitoloViaggio(LocalDate.of(2024, 2, 10));
-        titoloDiViaggioDao.save(biglietto8);
-
-         /*Tratta tratta1 = new Tratta();
-        tratta1.setNomePartenza("Piazza Maggiore");
-        tratta1.setNomeArrivo(("Stadio San Siro"));
-        Tratta tratta2 = new Tratta();
-        tratta2.setNomePartenza("Stadio San Siro");
-        tratta2.setNomeArrivo(("Piazza Maggiore"));
-        trattaDao.saveAll(List.of(tratta1,tratta2));
-
-        Tram tram1=new Tram();
-        tram1.setTarga("ly789ly");
-        mezzoDao.save(tram1);
-
-        Viaggio v1= new Viaggio();
-        v1.setNomeTratta("1");
-        v1.setTratta(tratta1);
-        v1.setMezzi(List.of(tram1));
-        Viaggio v2= new Viaggio();
-        v2.setNomeTratta("1");
-        v2.setTratta(tratta1);
-        v2.setMezzi(List.of(tram1));
-        Viaggio v3= new Viaggio();
-        v3.setNomeTratta("1");
-        v3.setTratta(tratta1);
-        v3.setMezzi(List.of(tram1));
-        viaggioDao.saveAll(List.of(v1,v2,v3));
-*/
+        viaggio3.setTratta(tratta4);
+        viaggio4.setTratta(tratta2);
+        viaggio5.setTratta(tratta3);
+        viaggio6.setTratta(tratta4);
+        viaggio7.setTratta(tratta1);
+        viaggio8.setTratta(tratta3);
+        viaggioDao.saveAll(List.of(viaggio1,viaggio2,viaggio3,viaggio4,viaggio5,viaggio6,viaggio7,viaggio8));
+        */
 
 
 
 
-//        ---QUERY----
-//        Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi
-//        in un dato periodo di tempo in totale e per punto di emissione
-        System.out.println("QUERY.1");
+
+
+
+//       ---QUERY 1----
+        // Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi in un dato periodo di tempo in totale e per punto di emissione
+        System.out.println("QUERY.1");//restituscie nella classe il nome del venditore e quanti ne ha venduti nel tempo che gli abbiamo passato
         List<CountRivenditoriViaggi> results = titoloDiViaggioDao.getTotaleBiglietti(LocalDate.of(2024, 1, 1),
                 LocalDate.of(2024, 12, 31));
 
@@ -353,62 +413,66 @@ public class Main {
             }
         });
 
-/*
-titoloDiViaggioDao.getStatoAbbonamento(UUID.fromString("755cdf66-343b-4c09-8950-01264e3d65d0"));*/
 
-//         ---QUERY 2----
+
 //        Deve essere possibile tenere traccia della scadenza degli abbonamenti dato il numero della tessera di un utente
 
+/*        System.out.println("QUERY.2");
+        titoloDiViaggioDao.getStatoAbbonamento3("755cdf66-343b-4c09-8950-01264e3d65d0");
         System.out.println();
-        System.out.println("QUERY.2");
+ */
 
-
-        titoloDiViaggioDao.getStatoAbbonamento3("cabdea43-4e66-441e-8074-a2d18200e90b");
-
-        System.out.println();
+      /*  System.out.println();
         System.out.println("QUERY.3");
 
         // ---QUERY 3----
-//        Deve essere possibile tenere traccia della scadenza degli abbonamenti dato il numero della tessera di un utente
-        tesseraDao.getValiditaTessera("61916754-b5b9-4df8-b888-39d2d8fa0ec3");
+        // Deve essere possibile tenere traccia della scadenza degli abbonamenti dato il numero della tessera di un utente
+        tesseraDao.getValiditaTessera("61916754-b5b9-4df8-b888-39d2d8fa0ec3");*/
 
 
-        System.out.println();
+      /*  System.out.println();
         System.out.println("Query.4");
-        //--query 4 StatusMezzi --
-        statusMezzoDao.getStatusMezzi(EnumStatus.IN_MANUTENZIONE);
 
-        System.out.println();
+        //--query 4  Occorre tenere traccia dei periodi di servizio o manutenzione di ogni mezzo dato uno status.
+        statusMezzoDao.getStatusMezzi(EnumStatus.IN_MANUTENZIONE);*/
+
+
+        /*System.out.println();
         System.out.println("Query.5");
-        //--query 5 statusMezzo
-         //statusMezzoDao.getStatusMezzo("b5d41d08-ba35-4052-9a7a-05e03ff88591",EnumStatus.IN_MANUTENZIONE);
-
-        //query: numero viaggi per tratta dato un mezzo
+        //--query 5 Occorre tenere traccia dei periodi di servizio o manutenzione di uno specifico mezzo dato uno status.
+        statusMezzoDao.getStatusMezzo("b5d41d08-ba35-4052-9a7a-05e03ff88591",EnumStatus.IN_MANUTENZIONE);*/
 
 
-
-        System.out.println("Query.6");
-        //query: numero viaggi per tratta dato un mezzo
+        /*System.out.println("Query.6");
+        //query6: numero viaggi per tratta dato un mezzo
         System.out.println("Viaggi effettuati per questa tratta: "+viaggioDao.contaViaggiByMezzoAndTratta("b5d41d08-ba35-4052-9a7a-05e03ff88591", 7));
+*/
 
-        System.out.println();
-
-        //query: tempo effettivo di ogni tratta
+       /* System.out.println();
+        //query: tempo effettivo di ogni tratta dato un mezzo e il numero della tratta
         System.out.println("Query.7");
         viaggioDao.tempoEffettivoTrattaBYMezzo("b5d41d08-ba35-4052-9a7a-05e03ff88591", 7).forEach(e -> System.out.println("Tempo impiegato: "+e));
+*/
 
+
+        //calcola la media dei tempi effettivi di ogni tratta,non passiamo nessun parametro perchè la query lavora direttamnte con la tabella tratta
+        System.out.println();
         System.out.println("Query.8");
         trattaDao.tempoEffettivoTratta();
 
 
 
         // query: deve essere possibile acquisire il numero di biglietti vidimati su un particolare mezzo
+        System.out.println();
         System.out.println("Query.9");
         System.out.println(titoloDiViaggioDao.calcoloBigliettiVidimati("df79d1a2-832a-4767-8722-0e78fc356bfe"));
 
-
+        
+        System.out.println();
         System.out.println("Query.10");
-        System.out.println(titoloDiViaggioDao.getTotaleBigliettiVidimatiPerData(LocalDate.of(2024,5,7),LocalDate.of(2024,5,8)));
+        System.out.println(titoloDiViaggioDao.getTotaleBigliettiVidimatiPerData(LocalDate.of(2024,5,7),LocalDate.of(2024,5,9)));
+
+
 
     }
 }

@@ -75,7 +75,7 @@ public class TrattaDao {
 
     public void tempoEffettivoTratta() {
         Query trattaQuery = em.createQuery("SELECT t FROM Tratta t");
-       // trattaQuery.getResultList().forEach(System.out::println);
+        trattaQuery.getResultList().forEach(System.out::println);
         setMediaEffettivaTrattaBYTratta(trattaQuery.getResultList());
     }
 
