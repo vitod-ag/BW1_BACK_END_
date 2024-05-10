@@ -8,7 +8,7 @@ import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class MezziDao {
-    private EntityManager em;
+    private EntityManager em; 
 
     public MezziDao(EntityManager em) {
         this.em = em;
