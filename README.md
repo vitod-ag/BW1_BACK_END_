@@ -121,7 +121,7 @@ Questa query calcola il numero di viaggi effettuati per una determinata tratta d
 ### Query.7:
 Questa query restituisce il tempo effettivo impiegato per ciascuna tratta da un particolare mezzo.
 ### Query.8:
-Questa query calcola la media dei tempi effettivi di tutte le tratte.
+Questa query calcola la media dei tempi effettivi di tutte le tratte, e poi viene fatto il marge sulla tabella tratta.
 ### Query.9:
 Questa query calcola il numero di biglietti vidimati su un particolare mezzo.
 ### Query.10:
