@@ -129,13 +129,23 @@ public void getStatoAbbonamento3(String idNumeroTessera) {
     try {
         statoAbbonamento = (StatoAbbonamento) query.getSingleResult();
         if (statoAbbonamento != null) {
-            System.out.println("Nome proprietario tessera: " + statoAbbonamento.getNomeTessera()+" "+statoAbbonamento.getCognomeTessera());
+            System.out.println("Nome proprietario tessera: " + statoAbbonamento.getNomeTessera() + " " + statoAbbonamento.getCognomeTessera());
             System.out.println("Scadenza abbonamento: " + statoAbbonamento.getScadenzaAbbonamento());
         } else {
             System.out.println("Nessun abbonamento trovato per il numero di tessera specificato.");
         }
     } catch (NoResultException e) {
         System.out.println("Nessun abbonamento trovato per il numero di tessera specificato.");
+    }
+}
+
+
+    public long calcoloBigliettiVidimati(UUID idMezzo) {
+        UUID uuidMezzo = UUID.fromString(idMezzo);
+        Mezzo mezzo = em.find(Mezzo.class, idMezzo);
+        Query query = em.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.statusValidita = true AND b.mezzoId = :idMezzo");
+        query.setParameter("idMezzo", idMezzo);
+        return (long) query.getSingleResult();
     }
 }
 
@@ -148,4 +158,4 @@ public void getStatoAbbonamento3(String idNumeroTessera) {
 //    between '2024-01-01' and '2024-12-31' group by r.idrivenditore;
 
 
-}
+

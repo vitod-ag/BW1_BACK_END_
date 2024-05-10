@@ -86,9 +86,6 @@ public class ViaggioDao {
         Query tempoQuery = em.createQuery("SELECT v.tempoEffettivo FROM Viaggio v WHERE v.tratta.idTratta = :idTratta AND :mezzo MEMBER OF v.mezzi");
         tempoQuery.setParameter("idTratta", idTratta);
         tempoQuery.setParameter("mezzo", mezzo);
-
-
-
         return tempoQuery.getResultList();
 
     }

@@ -330,7 +330,7 @@ titoloDiViaggioDao.getStatoAbbonamento(UUID.fromString("755cdf66-343b-4c09-8950-
         System.out.println();
         System.out.println("Query.5");
         //--query 5 statusMezzo
-         //statusMezzoDao.getStatusMezzo("b5d41d08-ba35-4052-9a7a-05e03ff88591",EnumStatus.IN_MANUTENZIONE);
+        //statusMezzoDao.getStatusMezzo("b5d41d08-ba35-4052-9a7a-05e03ff88591",EnumStatus.IN_MANUTENZIONE);
 
         //query: numero viaggi per tratta dato un mezzo
 
@@ -363,14 +363,26 @@ titoloDiViaggioDao.getStatoAbbonamento(UUID.fromString("755cdf66-343b-4c09-8950-
 
         System.out.println("Query.6");
         //query: numero viaggi per tratta dato un mezzo
-        System.out.println("Viaggi effettuati per questa tratta: "+viaggioDao.contaViaggiByMezzoAndTratta("b5d41d08-ba35-4052-9a7a-05e03ff88591", 7));
+        System.out.println("Viaggi effettuati per questa tratta: " + viaggioDao.contaViaggiByMezzoAndTratta("b5d41d08-ba35-4052-9a7a-05e03ff88591", 7));
 
         System.out.println();
 
         //query: tempo effettivo di ogni tratta
         System.out.println("Query.7");
-        viaggioDao.tempoEffettivoTratta("b5d41d08-ba35-4052-9a7a-05e03ff88591", 7).forEach(e -> System.out.println("Tempo impiegato: "+e));
+        List<LocalTime> tempoviaggio = viaggioDao.tempoEffettivoTrattaBYMezzo("b5d41d08-ba35-4052-9a7a-05e03ff88591", 7);
+        tempoviaggio.forEach(System.out::println);
+        //media della tratta dto un autobus
+        double media = tempoviaggio.stream()
+                .mapToLong(time -> time.toSecondOfDay())
+                .average()//calocla media dei secondi
+                .orElse(0.0);//se non ci stanno tempi restituisce 0.0
+        LocalTime mediaLocalTime = LocalTime.ofSecondOfDay((long) media);//conversione
+        System.out.println("Media del tempo impiegato: " + mediaLocalTime);
+
+        trattaDao.tempoEffettivoTratta();
 
 
+   titoloDiViaggioDao.calcoloBigliettiVidimati("b5d41d08-ba35-4052-9a7a-05e03ff88591");
     }
+
 }
