@@ -19,7 +19,7 @@ public class TitoloDiViaggio {
     @ManyToOne
     @JoinColumn(name = "id_rivenditori")
     private Rivenditore rivenditore;
-
+    @Column(name = "data_di_emissione")
     private LocalDate emissioneTitoloViaggio;
     public TitoloDiViaggio() {    }
     public TitoloDiViaggio(UUID idTitoloViaggio, Rivenditore rivenditore, LocalDate emissioneTitoloViaggio) {

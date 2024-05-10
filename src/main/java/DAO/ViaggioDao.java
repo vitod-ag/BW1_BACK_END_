@@ -88,7 +88,7 @@ public class ViaggioDao {
         return tempoQuery.getResultList();
 
     }
-    //STAI CUCINANDO BENE?ho sbaglia sorry AHAHAHAHA okkk
+
 
 
 

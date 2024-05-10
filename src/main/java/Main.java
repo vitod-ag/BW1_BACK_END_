@@ -1,4 +1,5 @@
 import DAO.*;
+
 import ResultDto.CountRivenditoriViaggi;
 import entities.Rivenditori.DistributoreAutomatico;
 import entities.Rivenditori.Rivenditore;
@@ -25,9 +26,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class Main {
-    private static Viaggio viaggio2;
-
-    //private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("bw1");
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("bw1");
         EntityManager em = emf.createEntityManager();
@@ -40,59 +38,10 @@ public class Main {
         ViaggioDao viaggioDao = new ViaggioDao(em);
         MezziDao mezzoDao = new MezziDao(em);
         StatusMezziDao statusMezzoDao = new StatusMezziDao(em);
-
-/*
-       //UTENTE 1---------------- CON TESSERA------------
-        //Tessera
-        Tessera t1 = new Tessera();
-        t1.setEmissione(LocalDate.of(2022, 10, 10));
-        tesseraDao.save(t1);
-
-        //utente
-        Utente u1 = new Utente();
-        u1.setNome("Mario");
-        u1.setCognome("Rossi");
-        u1.setDataNascita(LocalDate.of(1990, 10, 10));
-        t1.setUtente(u1);
-        utenteDao.save(u1);
-
-        //UTENTE 2---------------- CON TESSERA------------
-
-        Tessera t2 = new Tessera();
-        t2.setEmissione(LocalDate.of(2023, 5, 12));
-        tesseraDao.save(t2);
-        Utente u2 = new Utente();
-        u2.setNome("Roberta");
-        u2.setCognome("Verdi");
-        u2.setDataNascita(LocalDate.of(2006, 1, 10));
-        t2.setUtente(u2);
-        utenteDao.save(u2);
-
-        //UTENTE 3---------------- CON TESSERA----------------
-
-        Tessera t3 = new Tessera();
-        t3.setEmissione(LocalDate.of(2023, 10, 12));
-
-        tesseraDao.save(t3);
-
-        Utente u3 = new Utente();
-        u3.setNome("Roberta");
-        u3.setCognome("Verdi");
-        u3.setDataNascita(LocalDate.of(1996, 1, 10));
-        t3.setUtente(u3);
-        utenteDao.save(u3);
+        //-----------------------------------------------------------------
 
 
-        //UTENTE4------SENZA TESSERA---------------------------------------------------------
-        Utente u4 = new Utente();
-        u4.setNome("Ajeje");
-        u4.setCognome("Brazzorf");
-        u4.setDataNascita(LocalDate.of(2003, 1, 11));
-
-        utenteDao.save(u4);
-
-        // distributori, rivenditori autorizzati,
-
+        //DISTRIBUTORI AUTOMATICI-------------------------------------------------------
 
         DistributoreAutomatico distributoreAutomatico1 = new DistributoreAutomatico();
         DistributoreAutomatico distributoreAutomatico2 = new DistributoreAutomatico();
@@ -109,18 +58,18 @@ public class Main {
         rivenditoriDao.save(distributoreAutomatico2);
         rivenditoriDao.save(distributoreAutomatico3);
 
-
+        //RIVENDITORI AUTORIZZATI--------------------------------------------------------
         RivenditoreAutorizzato rivenditoreAutorizzato1 = new RivenditoreAutorizzato();
         RivenditoreAutorizzato rivenditoreAutorizzato2 = new RivenditoreAutorizzato();
         RivenditoreAutorizzato rivenditoreAutorizzato3 = new RivenditoreAutorizzato();
 
-        rivenditoreAutorizzato1.setNomeRivenditore("Baracchino 1");
+        rivenditoreAutorizzato1.setNomeRivenditore("Bar da Mario");
         rivenditoreAutorizzato1.setIndirizzo("Via Giuseppe Meazza");
 
         rivenditoreAutorizzato2.setNomeRivenditore("Giornalaio");
         rivenditoreAutorizzato2.setIndirizzo("Piazza di Spagna");
 
-        rivenditoreAutorizzato3.setNomeRivenditore("Baracchino 2");
+        rivenditoreAutorizzato3.setNomeRivenditore("Pasticceria Luna");
         rivenditoreAutorizzato3.setIndirizzo("Via dei Baracchini 50");
 
         rivenditoriDao.save(rivenditoreAutorizzato1);
@@ -128,38 +77,120 @@ public class Main {
         rivenditoriDao.save(rivenditoreAutorizzato3);
 
 
-        // parte biglietto, abbonamento
-
-        Biglietto biglietto1 = new Biglietto();
-
-        biglietto1.setRivenditore(rivenditoreAutorizzato1);
-        biglietto1.setUtente(u4);
-        biglietto1.setEmissioneTitoloViaggio(LocalDate.of(2024, 5, 8));
 
 
-        Biglietto biglietto2 = new Biglietto();
 
-        biglietto2.setRivenditore(rivenditoreAutorizzato2);
-        biglietto1.setUtente(u3);
-        biglietto1.setEmissioneTitoloViaggio(LocalDate.of(2024, 5, 7));
 
+        //UTENTE 1---------------- CON TESSERA------------
+        //Tessera
+        Tessera t1 = new Tessera();
+        t1.setEmissione(LocalDate.of(2022, 10, 10));
+        tesseraDao.save(t1);
+
+        //utente
+        Utente u1 = new Utente();
+        u1.setNome("Mario");
+        u1.setCognome("Rossi");
+        u1.setDataNascita(LocalDate.of(1990, 10, 10));
+        // assegno la tessera uno all'utente
+        t1.setUtente(u1);
+        utenteDao.save(u1);
 
         Abbonamento abbonamento1 = new Abbonamento();
         abbonamento1.setRivenditore(rivenditoreAutorizzato2);
-        abbonamento1.setTessera(t2);
+        abbonamento1.setTessera(t1);
         abbonamento1.setEmissione(EmissioneAbbonamento.MENSILE);
         abbonamento1.setEmissioneTitoloViaggio(LocalDate.of(2024, 5, 8));
+        titoloDiViaggioDao.save(abbonamento1);
+
+
+
+        //UTENTE 2---------------- CON TESSERA------------
+
+        Tessera t2 = new Tessera();
+        t2.setEmissione(LocalDate.of(2023, 5, 12));
+        tesseraDao.save(t2);
+        // salviamo la tessera 2
+        Utente u2 = new Utente();
+        u2.setNome("Roberta");
+        u2.setCognome("Verdi");
+        u2.setDataNascita(LocalDate.of(2006, 1, 10));
+        // assegno la tessera due all'utente
+        t2.setUtente(u2);
+        utenteDao.save(u2);
+
 
         Abbonamento abbonamento2 = new Abbonamento();
         abbonamento2.setRivenditore(rivenditoreAutorizzato3);
-        abbonamento2.setTessera(t3);
+        abbonamento2.setTessera(t2);
         abbonamento2.setEmissione(EmissioneAbbonamento.SETTIMANALE);
         abbonamento2.setEmissioneTitoloViaggio(LocalDate.of(2024, 5, 8));
-
-        titoloDiViaggioDao.save(abbonamento1);
         titoloDiViaggioDao.save(abbonamento2);
 
-        // parte mezzi, status, tratta
+
+
+        //UTENTE 3---------------- SENZA TESSERA----------------
+
+        Utente u3 = new Utente();
+        u3.setNome("Bruno");
+        u3.setCognome("Conti");
+        u3.setDataNascita(LocalDate.of(1996, 1, 10));
+        utenteDao.save(u3);
+
+        //BIGLIETTI UTENTE1---------------------------------------------------------
+        //b1
+        Biglietto biglietto1a = new Biglietto(); // BIGLIETTO DELL'UTENTE SENZA TESSERA U3
+
+        biglietto1a.setRivenditore(rivenditoreAutorizzato1);//SETTO IL RIVENDITORE DEL BIGLIETTO
+        biglietto1a.setUtente(u3); // SETTO L'UTENTE CHE USA IL BIGLIETTO
+        biglietto1a.setEmissioneTitoloViaggio(LocalDate.of(2024, 5, 8)); //SETTO GIORNI DI EMISSIONE
+        //b2
+        Biglietto biglietto1b = new Biglietto(); // BIGLIETTO DELL'UTENTE SENZA TESSERA U3
+
+        biglietto1b.setRivenditore(rivenditoreAutorizzato1);//SETTO IL RIVENDITORE DEL BIGLIETTO
+        biglietto1b.setUtente(u3); // SETTO L'UTENTE CHE USA IL BIGLIETTO
+        biglietto1b.setEmissioneTitoloViaggio(LocalDate.of(2024, 5, 8)); //SETTO GIORNI DI EMISSIONE
+
+
+        //UTENTE4------------------SENZA TESSERA-------------------------------------
+        Utente u4 = new Utente();
+        u4.setNome("Brandi");
+        u4.setCognome("Love");
+        u4.setDataNascita(LocalDate.of(2003, 1, 11));
+        utenteDao.save(u4);
+
+        //BIGLIETTI UTENTE2-----------------------------------------------------
+        Biglietto biglietto2 = new Biglietto(); // BIGLIETTO DELL'UTENTE SENZA TESSERA U4
+
+        biglietto2.setRivenditore(rivenditoreAutorizzato2); //SETTO IL RIVENDITORE DEL BIGLIETTO
+        biglietto2.setUtente(u4);// SETTO L'UTENTE CHE USA IL BIGLIETTO
+        biglietto2.setEmissioneTitoloViaggio(LocalDate.of(2024, 5, 7)); //SETTO GIORNI DI EMISSIONE
+
+
+
+        //TRATTE-------------------------------------------
+
+
+        //tratta andata
+        Tratta tratta1 = new Tratta();
+        tratta1.setNomePartenza("Piazza di Spagna");
+        tratta1.setNomeArrivo(("Stadio Olimpico"));
+
+        //Tratta ritorno
+        Tratta tratta2 = new Tratta();
+        tratta2.setNomePartenza("Roma Termini");
+        tratta2.setNomeArrivo(("Sulmona"));
+        //Tratta ritorno
+        Tratta tratta3 = new Tratta();
+        tratta3.setNomePartenza("Bologna");
+        tratta3.setNomeArrivo(("Bari"));
+        //Tratta ritorno
+        Tratta tratta4 = new Tratta();
+        tratta4.setNomePartenza("Roma Tiburtina");
+        tratta4.setNomeArrivo(("Orbetello"));
+        trattaDao.saveAll(List.of(tratta1, tratta2, tratta3, tratta4));
+
+        //MEZZI------------------------------------------------------------
 
         Autobus autobus1 = new Autobus();
         autobus1.setTarga("BY230JA");
@@ -191,43 +222,8 @@ public class Main {
 
         Tram tram5 = new Tram();
         tram5.setTarga("MG540KA");
-
-        mezzoDao.save(autobus1);
-        mezzoDao.save(autobus2);
-        mezzoDao.save(autobus3);
-        mezzoDao.save(autobus4);
-        mezzoDao.save(autobus5);
-
-        mezzoDao.save(tram1);
-        mezzoDao.save(tram2);
-        mezzoDao.save(tram3);
-        mezzoDao.save(tram4);
-        mezzoDao.save(tram5);
         mezzoDao.saveAll(List.of(autobus1, autobus2, autobus3, autobus4, autobus5, tram1, tram2, tram3, tram4, tram5));
-
-        //Utilizzo biglietti
-        biglietto1.setMezzo(autobus1);
-        biglietto1.setstatusValidita(true);
-        biglietto1.setTimbratura(LocalDate.of(2024, 5, 8));
-
-        biglietto2.setMezzo(autobus1);
-        biglietto2.setstatusValidita(true);
-        biglietto2.setTimbratura(LocalDate.of(2024, 5, 7));
-        titoloDiViaggioDao.save(biglietto1);
-        titoloDiViaggioDao.save(biglietto2);
-
-
-        //viaggi, tratte
-        Tratta tratta1 = new Tratta();
-
-        //tratta andata
-        tratta1.setNomePartenza("Piazza di Spagna");
-        tratta1.setNomeArrivo(("Stadio Olimpico"));
-        //TRatta ritorno
-        tratta1.setNomePartenza("Stadio Olimpico");
-        tratta1.setNomeArrivo(("Piazza di Spagna"));
-
-
+        //STATUSmEZZI
         StatusMezzo statusMezzo2 = new StatusMezzo();
         statusMezzo2.setMezzo(autobus1);
         statusMezzo2.setStatus(EnumStatus.IN_MANUTENZIONE);
@@ -238,6 +234,32 @@ public class Main {
         statusMezzo1.setMezzo(autobus1);
         statusMezzo1.setStatus(EnumStatus.IN_SERVIZIO);
         statusMezzo1.setDataInizio(LocalDate.of(2024, 1, 10));
+
+
+
+
+        //Utilizzo biglietti
+        biglietto1a.setMezzo(autobus1);
+        biglietto1a.setstatusValidita(true);
+        biglietto1a.setTimbratura(LocalDate.of(2024, 5, 8));
+
+        biglietto1b.setMezzo(autobus1);
+        biglietto1b.setstatusValidita(true);
+        biglietto1b.setTimbratura(LocalDate.of(2024, 5, 9));
+
+        biglietto2.setMezzo(autobus1);
+        biglietto2.setstatusValidita(true);
+        biglietto2.setTimbratura(LocalDate.of(2024, 5, 7));
+        
+        titoloDiViaggioDao.save(biglietto1a);
+        titoloDiViaggioDao.save(biglietto1b);
+        titoloDiViaggioDao.save(biglietto2);
+
+
+
+
+
+
 
 
         //ANDATA
@@ -281,7 +303,36 @@ public class Main {
         biglietto8.setRivenditore(rivenditoreAutorizzato1);
         biglietto8.setEmissioneTitoloViaggio(LocalDate.of(2024, 2, 10));
         titoloDiViaggioDao.save(biglietto8);
+
+         /*Tratta tratta1 = new Tratta();
+        tratta1.setNomePartenza("Piazza Maggiore");
+        tratta1.setNomeArrivo(("Stadio San Siro"));
+        Tratta tratta2 = new Tratta();
+        tratta2.setNomePartenza("Stadio San Siro");
+        tratta2.setNomeArrivo(("Piazza Maggiore"));
+        trattaDao.saveAll(List.of(tratta1,tratta2));
+
+        Tram tram1=new Tram();
+        tram1.setTarga("ly789ly");
+        mezzoDao.save(tram1);
+
+        Viaggio v1= new Viaggio();
+        v1.setNomeTratta("1");
+        v1.setTratta(tratta1);
+        v1.setMezzi(List.of(tram1));
+        Viaggio v2= new Viaggio();
+        v2.setNomeTratta("1");
+        v2.setTratta(tratta1);
+        v2.setMezzi(List.of(tram1));
+        Viaggio v3= new Viaggio();
+        v3.setNomeTratta("1");
+        v3.setTratta(tratta1);
+        v3.setMezzi(List.of(tram1));
+        viaggioDao.saveAll(List.of(v1,v2,v3));
 */
+
+
+
 
 //        ---QUERY----
 //        Deve essere possibile tenere traccia del numero di biglietti e/o abbonamenti emessi
@@ -330,59 +381,34 @@ titoloDiViaggioDao.getStatoAbbonamento(UUID.fromString("755cdf66-343b-4c09-8950-
         System.out.println();
         System.out.println("Query.5");
         //--query 5 statusMezzo
-        //statusMezzoDao.getStatusMezzo("b5d41d08-ba35-4052-9a7a-05e03ff88591",EnumStatus.IN_MANUTENZIONE);
+         //statusMezzoDao.getStatusMezzo("b5d41d08-ba35-4052-9a7a-05e03ff88591",EnumStatus.IN_MANUTENZIONE);
 
         //query: numero viaggi per tratta dato un mezzo
 
- /*Tratta tratta1 = new Tratta();
-        tratta1.setNomePartenza("Piazza Maggiore");
-        tratta1.setNomeArrivo(("Stadio San Siro"));
-        Tratta tratta2 = new Tratta();
-        tratta2.setNomePartenza("Stadio San Siro");
-        tratta2.setNomeArrivo(("Piazza Maggiore"));
-        trattaDao.saveAll(List.of(tratta1,tratta2));
 
-        Tram tram1=new Tram();
-        tram1.setTarga("ly789ly");
-        mezzoDao.save(tram1);
-
-        Viaggio v1= new Viaggio();
-        v1.setNomeTratta("1");
-        v1.setTratta(tratta1);
-        v1.setMezzi(List.of(tram1));
-        Viaggio v2= new Viaggio();
-        v2.setNomeTratta("1");
-        v2.setTratta(tratta1);
-        v2.setMezzi(List.of(tram1));
-        Viaggio v3= new Viaggio();
-        v3.setNomeTratta("1");
-        v3.setTratta(tratta1);
-        v3.setMezzi(List.of(tram1));
-        viaggioDao.saveAll(List.of(v1,v2,v3));
-*/
 
         System.out.println("Query.6");
         //query: numero viaggi per tratta dato un mezzo
-        System.out.println("Viaggi effettuati per questa tratta: " + viaggioDao.contaViaggiByMezzoAndTratta("b5d41d08-ba35-4052-9a7a-05e03ff88591", 7));
+        System.out.println("Viaggi effettuati per questa tratta: "+viaggioDao.contaViaggiByMezzoAndTratta("b5d41d08-ba35-4052-9a7a-05e03ff88591", 7));
 
         System.out.println();
 
         //query: tempo effettivo di ogni tratta
         System.out.println("Query.7");
-        List<LocalTime> tempoviaggio = viaggioDao.tempoEffettivoTrattaBYMezzo("b5d41d08-ba35-4052-9a7a-05e03ff88591", 7);
-        tempoviaggio.forEach(System.out::println);
-        //media della tratta dto un autobus
-        double media = tempoviaggio.stream()
-                .mapToLong(time -> time.toSecondOfDay())
-                .average()//calocla media dei secondi
-                .orElse(0.0);//se non ci stanno tempi restituisce 0.0
-        LocalTime mediaLocalTime = LocalTime.ofSecondOfDay((long) media);//conversione
-        System.out.println("Media del tempo impiegato: " + mediaLocalTime);
+        viaggioDao.tempoEffettivoTrattaBYMezzo("b5d41d08-ba35-4052-9a7a-05e03ff88591", 7).forEach(e -> System.out.println("Tempo impiegato: "+e));
 
+        System.out.println("Query.8");
         trattaDao.tempoEffettivoTratta();
 
 
-   titoloDiViaggioDao.calcoloBigliettiVidimati("b5d41d08-ba35-4052-9a7a-05e03ff88591");
-    }
 
+        // query: deve essere possibile acquisire il numero di biglietti vidimati su un particolare mezzo
+        System.out.println("Query.9");
+        System.out.println(titoloDiViaggioDao.calcoloBigliettiVidimati("df79d1a2-832a-4767-8722-0e78fc356bfe"));
+
+
+        System.out.println("Query.10");
+        System.out.println(titoloDiViaggioDao.getTotaleBigliettiVidimatiPerData(LocalDate.of(2024,5,7),LocalDate.of(2024,5,8)));
+
+    }
 }

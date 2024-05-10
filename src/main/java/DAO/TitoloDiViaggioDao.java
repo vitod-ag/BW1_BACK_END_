@@ -14,6 +14,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -140,11 +143,19 @@ public void getStatoAbbonamento3(String idNumeroTessera) {
 }
 
 
-    public long calcoloBigliettiVidimati(UUID idMezzo) {
+    public long calcoloBigliettiVidimati(String idMezzo) {
         UUID uuidMezzo = UUID.fromString(idMezzo);
-        Mezzo mezzo = em.find(Mezzo.class, idMezzo);
-        Query query = em.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.statusValidita = true AND b.mezzoId = :idMezzo");
-        query.setParameter("idMezzo", idMezzo);
+        Query query = em.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.statusValidita = true AND b.mezzo.idMezzo = :idMezzo");
+        query.setParameter("idMezzo", uuidMezzo);
+        return (long) query.getSingleResult();
+    }
+
+
+    public long getTotaleBigliettiVidimatiPerData(LocalDate inizio, LocalDate fine) {
+
+            Query query = em.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.timbratura BETWEEN :startDate AND :endDate");
+        query.setParameter("startDate", inizio);
+        query.setParameter("endDate", fine);
         return (long) query.getSingleResult();
     }
 }

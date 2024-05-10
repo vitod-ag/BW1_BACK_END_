@@ -61,4 +61,5 @@ public class MezziDao {
             System.out.println("Errore durante il salvataggio dei mezzi: " + e.getMessage());
         }
     }
+
 }

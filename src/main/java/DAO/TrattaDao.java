@@ -9,9 +9,13 @@ import entities.mezzi.Mezzo;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class TrattaDao {
     private EntityManager em;
@@ -75,11 +79,44 @@ public class TrattaDao {
         setMediaEffettivaTrattaBYTratta(trattaQuery.getResultList());
     }
 
-    public void setMediaEffettivaTrattaBYTratta(List<Tratta> tratta){
-       // tratta.stream().map(Viaggio::getTempoEffettivo).mapToLong(time->((LocalTime) time).toSecondOfDay()).sum();
-        tratta.stream().flatMap(t->t.getViaggi().stream()).mapToLong(v->v.getTempoEffettivo().toSecondOfDay())
+    public void setMediaEffettivaTrattaBYTratta(List<Tratta> tratte){
+        try {
+            em.getTransaction().begin();
 
+            Map<Tratta, LocalTime> tempoMedioPerTratta = tratte.stream()
+                    .collect(Collectors.toMap(
+                            tratta -> tratta,
+                            tratta -> {
+                                List<LocalTime> tempiEffettivi = tratta.getViaggi().stream()
+                                        .map(Viaggio::getTempoEffettivo)
+                                        .filter(Objects::nonNull)
+                                        .collect(Collectors.toList());
+                                if (tempiEffettivi.isEmpty()) {
+                                    return LocalTime.MIN;
+                                }
+                                long tempoTotaleInSeconds = tempiEffettivi.stream()
+                                        .mapToLong(tempo -> tempo.toSecondOfDay())
+                                        .sum();
+
+                                return LocalTime.ofSecondOfDay(tempoTotaleInSeconds / tempiEffettivi.size());
+                            }
+                    ));
+
+            tempoMedioPerTratta.forEach((tratta, tempoMedio) -> {
+                tratta.setTempoMedioTratta(tempoMedio);
+                em.merge(tratta);
+            });
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace(); // Gestisci l'eccezione come preferisci
+        }
     }
+
+
 
 
 }
