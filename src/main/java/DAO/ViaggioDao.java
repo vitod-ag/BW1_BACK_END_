@@ -78,10 +78,9 @@ public class ViaggioDao {
 
     }
 
-    public List<LocalTime> tempoEffettivoTratta(String idMezzo, int idTratta) {
+    public List<LocalTime> tempoEffettivoTrattaBYMezzo(String idMezzo, int idTratta) {
         UUID uuidMezzo = UUID.fromString(idMezzo);
         Mezzo mezzo = em.find(Mezzo.class, uuidMezzo);
-
         // Query per il tempo effettivo di ogni viaggio
         Query tempoQuery = em.createQuery("SELECT v.tempoEffettivo FROM Viaggio v WHERE v.tratta.idTratta = :idTratta AND :mezzo MEMBER OF v.mezzi");
         tempoQuery.setParameter("idTratta", idTratta);
@@ -89,8 +88,11 @@ public class ViaggioDao {
         return tempoQuery.getResultList();
 
     }
+    //STAI CUCINANDO BENE?ho sbaglia sorry AHAHAHAHA okkk
+
+
+
 
 
     //query tempo effettivo tratte
-
 }
